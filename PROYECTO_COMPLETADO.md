@@ -81,9 +81,10 @@ Entorno virtual: `.venv/`
 
 ### Distribución Inteligente
 - [x] Detección automática de piso por número de habitación
-  - PISO 1: 101-118
-  - PISO 2: 201-232
-  - PISO 3: 301-344
+  - PISO 1: 101-121 (21 habitaciones)
+  - PISO 2: 222-242 (21 habitaciones)
+  - PISO 3: 343-353 (11 habitaciones)
+  - TOTAL: 53 habitaciones
 - [x] Actualización sin corrupción de archivos
 - [x] Manejo de habitaciones duplicadas (múltiples huéspedes)
 - [x] Mapeo correcto de columnas ODS
@@ -202,7 +203,7 @@ python reducir_archivo.py
 
 **Síntoma:** Habitación 150 se importa pero no aparece en pisos
 
-**Causa:** Solo se distribuyen habitaciones en rangos 101-118, 201-232, 301-344
+**Causa:** Solo se distribuyen habitaciones en rangos 101-121, 222-242, 343-353
 
 **Solución:** Ampliar `PISO_RANGES` en `distribuir_a_pisos.py` si hay más habitaciones
 

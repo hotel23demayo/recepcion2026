@@ -92,16 +92,17 @@ Tu CSV exportado (28 columnas) → ODS (14 columnas esenciales)
 
 El sistema detecta automáticamente el piso según el número de habitación:
 
-| Piso | Rango de Habitaciones | Pestaña ODS |
-|------|----------------------|-------------|
-| **PISO 1** | 101 - 118 | "PISO 1" |
-| **PISO 2** | 201 - 232 | "PISO 2" |
-| **PISO 3** | 301 - 344 | "PISO 3" |
+| Piso | Rango de Habitaciones | Cantidad | Pestaña ODS |
+|------|----------------------|----------|-------------|
+| **PISO 1** | 101 - 121 | 21 hab | "PISO 1" |
+| **PISO 2** | 222 - 242 | 21 hab | "PISO 2" |
+| **PISO 3** | 343 - 353 | 11 hab | "PISO 3" |
+| **TOTAL** | - | **53 hab** | - |
 
 **Ejemplo:**
 - Habitación 105 → Se actualiza en PISO 1
 - Habitación 225 → Se actualiza en PISO 2  
-- Habitación 344 → Se actualiza en PISO 3
+- Habitación 350 → Se actualiza en PISO 3
 
 ---
 
@@ -199,9 +200,11 @@ Si una habitación tiene 3 personas:
 
 ### Habitaciones Fuera de Rango
 
-Si importas una habitación 150 (fuera del rango 101-118):
+Si importas una habitación 150 (fuera de los rangos válidos):
 - Se importa correctamente a "Ingresos"
 - NO se distribuye a ningún piso (queda solo en Ingresos)
+
+**Rangos válidos:** 101-121, 222-242, 343-353
 
 ### CSV con Formato Diferente
 
@@ -253,9 +256,9 @@ Abrir: GRILLA_DE_PAX_2026.ods
 
 Verificar:
 - Pestaña "Ingresos 23 D MAYO": últimas 50 filas
-- Pestaña "PISO 1": habitaciones 101-118 actualizadas
-- Pestaña "PISO 2": habitaciones 201-232 actualizadas
-- Pestaña "PISO 3": habitaciones 301-344 actualizadas
+- Pestaña "PISO 1": habitaciones 101-121 actualizadas
+- Pestaña "PISO 2": habitaciones 222-242 actualizadas
+- Pestaña "PISO 3": habitaciones 343-353 actualizadas
 ```
 
 ---
@@ -302,7 +305,7 @@ ls GRILLA_DE_PAX_2026.ods
 python debug_ingresos.py
 
 # Las habitaciones deben estar en:
-# 101-118, 201-232, 301-344
+# 101-121, 222-242, 343-353
 ```
 
 ### El proceso es muy lento

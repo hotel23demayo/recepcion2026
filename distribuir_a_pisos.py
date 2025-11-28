@@ -18,10 +18,11 @@ from odf.number import NumberStyle, Number, Text as NumberText
 ODS_FILE = "GRILLA_DE_PAX_2026.ods"
 
 # Mapeo de habitaciones a pisos (nombres internos)
+# Distribución real del Hotel 23 de Mayo: 53 habitaciones
 PISO_RANGES = {
-    'PISO_1': (101, 118),  # Habitaciones 101-118
-    'PISO_2': (201, 232),  # Habitaciones 201-232
-    'PISO_3': (301, 344),  # Habitaciones 301-344
+    'PISO_1': (101, 121),  # Habitaciones 101-121 (21 hab)
+    'PISO_2': (222, 242),  # Habitaciones 222-242 (21 hab)
+    'PISO_3': (343, 353),  # Habitaciones 343-353 (11 hab)
 }
 
 # Mapeo de nombres internos a nombres en el archivo ODS (con espacio)
