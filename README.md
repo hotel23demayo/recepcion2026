@@ -1,248 +1,151 @@
-# Sistema de Gestión de Reservas - Hotel 23 de Mayo
+# 🏨 Sistema de Gestión de Reservas Hoteleras
 
-Sistema automatizado para importar y distribuir reservas hoteleras en grilla de ocupación por pisos.
+Sistema automatizado para la importación, distribución y seguimiento de reservas de hotel en formato Excel.
 
 ## 📋 Descripción
 
-Este proyecto procesa archivos CSV exportados desde el sistema hotelero y:
-1. **Importa** todas las reservas a la hoja "Ingresos 23 D MAYO"
-2. **Distribuye** automáticamente los pasajeros a las grillas de cada piso
-3. **Actualiza** estadísticas en tiempo real (pasajeros, reservas, MAP)
+Este repositorio contiene herramientas Python para automatizar la gestión de reservas hoteleras, permitiendo:
+- Importar datos desde archivos CSV exportados del sistema de gestión
+- Distribuir automáticamente los pasajeros en las grillas de cada piso
+- Generar estadísticas dinámicas de ocupación
+- Limpiar y reiniciar las grillas preservando la estructura
 
-## 🏨 Estructura del Hotel
+## 🏢 Estructura del Hotel
 
-### PISO 1 (21 habitaciones)
-**Rango:** 101 - 121
-
-| Habitación | Tipo | Plazas |
-|------------|------|--------|
-| 101 | DOBLE INDIVIDUALES | 2 |
-| 102 | DOBLE INDIVIDUALES | 2 |
-| 103 | DOBLE INDIVIDUALES | 2 |
-| 104 | DOBLE INDIVIDUALES | 2 |
-| 105 | DOBLE INDIVIDUALES | 2 |
-| 106 | DOBLE INDIVIDUALES | 2 |
-| 107 | DOBLE INDIVIDUALES | 2 |
-| 108 | DOBLE INDIVIDUALES | 2 |
-| 109 | DOBLE INDIVIDUALES | 2 |
-| 110 | DOBLE INDIVIDUALES | 2 |
-| 111 | DOBLE INDIVIDUALES | 2 |
-| 112 | DOBLE INDIVIDUALES | 2 |
-| 113 | DOBLE INDIVIDUALES | 2 |
-| 114 | DOBLE INDIVIDUALES | 2 |
-| 115 | TRIPLE | 3 |
-| 116 | TRIPLE | 3 |
-| 117 | TRIPLE | 3 |
-| 118 | TRIPLE | 3 |
-| 119 | TRIPLE | 3 |
-| 120 | DOBLE INDIVIDUALES | 2 |
-| 121 | DOBLE INDIVIDUALES | 2 |
-
-**Capacidad total PISO 1:** 45 plazas
-
-### PISO 2 (21 habitaciones)
-**Rango:** 222 - 242
-
-| Habitación | Tipo | Plazas |
-|------------|------|--------|
-| 222 | DOBLE INDIVIDUALES | 2 |
-| 223 | DOBLE INDIVIDUALES | 2 |
-| 224 | DOBLE INDIVIDUALES | 2 |
-| 225 | DOBLE INDIVIDUALES | 2 |
-| 226 | DOBLE INDIVIDUALES | 2 |
-| 227 | TRIPLE | 3 |
-| 228 | TRIPLE | 3 |
-| 229 | TRIPLE | 3 |
-| 230 | TRIPLE | 3 |
-| 231 | TRIPLE | 3 |
-| 232 | TRIPLE | 3 |
-| 233 | TRIPLE | 3 |
-| 234 | TRIPLE | 3 |
-| 235 | TRIPLE | 3 |
-| 236 | TRIPLE | 3 |
-| 237 | TRIPLE | 3 |
-| 238 | DOBLE INDIVIDUALES | 2 |
-| 239 | DOBLE INDIVIDUALES | 2 |
-| 240 | CUADRUPLE | 4 |
-| 241 | DOBLE INDIVIDUALES | 2 |
-| 242 | DOBLE INDIVIDUALES | 2 |
-
-**Capacidad total PISO 2:** 55 plazas
-
-### PISO 3 (11 habitaciones)
-**Rango:** 343 - 353
-
-| Habitación | Tipo | Plazas |
-|------------|------|--------|
-| 343 | TRIPLE | 3 |
-| 344 | TRIPLE | 3 |
-| 345 | TRIPLE | 3 |
-| 346 | TRIPLE | 3 |
-| 347 | TRIPLE | 3 |
-| 348 | TRIPLE | 3 |
-| 349 | TRIPLE | 3 |
-| 350 | TRIPLE | 3 |
-| 351 | TRIPLE | 3 |
-| 352 | TRIPLE | 3 |
-| 353 | TRIPLE | 3 |
-
-**Capacidad total PISO 3:** 33 plazas
-
----
-
-**CAPACIDAD TOTAL HOTEL:** 53 habitaciones | 133 plazas
+- **PISO 1**: Habitaciones 101-121 (21 habitaciones)
+- **PISO 2**: Habitaciones 222-242 (21 habitaciones)
+- **PISO 3**: Habitaciones 343-353 (11 habitaciones)
+- **Total**: 53 habitaciones
 
 ## 🚀 Uso
 
-### Instalación
+### 1. Procesar Reservas
 
 ```bash
-# Clonar repositorio
-git clone https://github.com/xpablodaniel/recepcion2026.git
-cd recepcion2026
-
-# Crear entorno virtual
-python -m venv .venv
-source .venv/bin/activate  # En Windows: .venv\Scripts\activate
-
-# Instalar dependencias
-pip install openpyxl  # Para Excel
-pip install odfpy     # Para ODS (LibreOffice)
+python3 procesar_reservas.py archivo_reservas.csv
 ```
 
-### Procesar Reservas
+**Funciones:**
+- ✅ Importa datos CSV a la pestaña "Ingresos 23 D MAYO"
+- ✅ Distribuye todos los pasajeros a las grillas de PISO 1, 2 y 3
+- ✅ Genera resumen estadístico en PISO 1 (columnas H-I, filas 278-282):
+  - Total de Pasajeros
+  - Total de Habitaciones Ocupadas
+  - Total con Media Pensión/All Inclusive
+- ✅ Crea backup automático con timestamp
 
-**Para Excel (.xlsx) - Casa:**
+### 2. Limpiar Grillas
+
 ```bash
-python procesar_reservas.py archivo.csv
+python3 limpiar_grillas_pisos.py
 ```
 
-**Para ODS (LibreOffice) - Trabajo:**
+**Funciones:**
+- 🧹 Limpia todas las grillas de PISO 1, 2 y 3
+- 🧹 Limpia la pestaña de Ingresos
+- ✅ Preserva todos los encabezados
+- 🗑️ Elimina automáticamente todos los archivos de backup
+- ✅ Deja el archivo listo para nuevas reservas
+
+## 📁 Archivos Principales
+
+### Scripts Python
+
+- **`procesar_reservas.py`** - Script principal de procesamiento de reservas
+- **`limpiar_grillas_pisos.py`** - Script de limpieza y reinicio de grillas
+
+### Archivos de Datos
+
+- **`Grilla de Pax 2030.xlsx`** - Archivo Excel principal con las grillas de trabajo
+- **`datos_ficticios.csv`** - Datos de ejemplo para pruebas (sin información personal)
+
+## 📊 Formato del CSV de Entrada
+
+El archivo CSV debe contener las siguientes columnas:
+
+```
+Nro. habitación, Fecha de ingreso, Fecha de egreso, Plazas ocupadas, 
+Tipo documento, Nro. doc., Apellido y nombre, Edad, Voucher, 
+Servicios, Estado, Paquete, Sede
+```
+
+**Servicios soportados:**
+- `DESAYUNO`
+- `MEDIA PENSION` / `MEDIA PENSIÓN`
+- `ALL INCLUSIVE`
+
+## 🔄 Flujo de Trabajo Típico
+
+1. **Limpiar grillas** (inicio de temporada o mes):
+   ```bash
+   python3 limpiar_grillas_pisos.py
+   ```
+
+2. **Procesar nuevas reservas**:
+   ```bash
+   python3 procesar_reservas.py reservas_enero.csv
+   ```
+
+3. **Agregar más reservas** (acumulativo):
+   ```bash
+   python3 procesar_reservas.py reservas_adicionales.csv
+   ```
+
+## 🔒 Seguridad y Backups
+
+- ✅ **Backups automáticos**: Cada operación crea un backup con timestamp
+- ✅ **Formato**: `BACKUP_YYYYMMDD_HHMMSS_Grilla de Pax 2030.xlsx`
+- ✅ **Limpieza automática**: El script de limpieza elimina backups antiguos
+- ⚠️ **Importante**: Cerrar el archivo Excel antes de ejecutar los scripts
+
+## 📈 Estadísticas Generadas
+
+El sistema calcula automáticamente:
+
+- **Total Pasajeros**: Suma de todos los registros procesados
+- **Total Habitaciones**: Cantidad de habitaciones únicas ocupadas
+- **Total Media Pensión**: Pasajeros con servicio MAP o All Inclusive
+
+Las estadísticas se actualizan en cada ejecución y se muestran en la pestaña PISO 1.
+
+## 🛠️ Requisitos
+
 ```bash
-python procesar_reservas_ods.py archivo.csv
+Python 3.10+
+openpyxl 3.1.5+
 ```
 
-**Ejemplo:**
+### Instalación de dependencias:
+
 ```bash
-# En casa con Excel
-python procesar_reservas.py consultaRegimenReport.csv
-
-# En el trabajo con LibreOffice
-python procesar_reservas_ods.py consultaRegimenReport.csv
+pip install openpyxl
 ```
 
-### Formato del CSV
+## 📝 Notas Técnicas
 
-El archivo CSV debe contener las siguientes columnas del sistema hotelero:
+- El script busca la primera fila vacía en Ingresos para agregar datos (acumulativo)
+- Los encabezados se preservan siempre en la fila 1
+- Las grillas de PISO usan columnas C-L para datos dinámicos
+- El resumen se ubica en PISO 1, 5 filas después del texto "BEBIDAS" (fila 278)
 
-- `Nro. habitación`
-- `Fecha de ingreso`
-- `Fecha de egreso`
-- `Cantidad plazas`
-- `Tipo documento`
-- `Nro. doc.`
-- `Apellido y nombre`
-- `Edad`
-- `Voucher`
-- `Servicios` (MAP/Comida)
-- `Estado`
-- `Paquete`
-- `Sede`
+## 🆕 Changelog
 
-## 📊 Características
+### v3.0 (29/11/2025)
+- ➕ Resumen estadístico en PISO 1 con 3 métricas
+- ➕ Script de limpieza mejorado con preservación de encabezados
+- ➕ Datos ficticios para pruebas seguras
+- 🔧 Fix: Búsqueda correcta de primera fila vacía en Ingresos
+- 🗑️ Eliminados: archivos ODS y test antiguos
 
-✅ **Importación automática** a hoja "Ingresos 23 D MAYO"
-✅ **Distribución inteligente** por piso según número de habitación
-✅ **Grupos familiares completos** en filas consecutivas
-✅ **Histórico acumulativo** (no sobreescribe datos existentes)
-✅ **Estadísticas automáticas** en celdas H277:H279:
-   - H277: Total pasajeros
-   - H278: Total reservas (habitaciones)
-   - H279: Total MAP (Media Pensión)
-✅ **Respaldo automático** antes de cada proceso
-✅ **Resumen detallado** en consola
+### v2.0 (28/11/2025)
+- ➕ Sistema unificado de importación + distribución
+- ➕ Soporte dual Excel/ODS
+- ➕ Backups automáticos con timestamp
 
-## 📁 Archivos
+## 📞 Soporte
 
-**Scripts:**
-- `procesar_reservas.py` - Script para Excel (.xlsx) - **Usar en casa**
-- `procesar_reservas_ods.py` - Script para LibreOffice (.ods) - **Usar en trabajo**
+Para consultas o reportar problemas, crear un issue en el repositorio.
 
-**Archivos de datos:**
-- `Grilla de Pax 2030.xlsx` - Archivo Excel de trabajo (casa)
-- `Grilla de Pax 2030.ods` - Archivo ODS de trabajo (trabajo)
-- `GRILLA_DE_PAX_RESPALDO_HISTORICO.ods` - Respaldo histórico completo
-- `test-data-map.csv` - Datos de prueba (15 registros, 7 habitaciones)
+---
 
-**Documentación:**
-- `README.md` - Esta documentación
-
-## 🔄 Flujo de Trabajo Diario
-
-**En casa (Windows + Excel):**
-1. Exportar CSV desde sistema hotelero
-2. Ejecutar: `python procesar_reservas.py nombre_archivo.csv`
-3. Verificar salida en consola
-4. Abrir `Grilla de Pax 2030.xlsx` para revisar
-5. Las nuevas reservas se agregan debajo de las existentes
-
-**En el trabajo (Linux + LibreOffice):**
-1. Exportar CSV desde sistema hotelero
-2. Ejecutar: `python procesar_reservas_ods.py nombre_archivo.csv`
-3. Verificar salida en consola
-4. Abrir `Grilla de Pax 2030.ods` para revisar
-5. Las nuevas reservas se agregan debajo de las existentes
-
-## ⚙️ Requisitos Técnicos
-
-**Para Excel (casa):**
-- Python 3.10+
-- openpyxl 3.1.5+
-- Microsoft Excel
-
-**Para ODS (trabajo):**
-- Python 3.10+
-- odfpy 1.4.1+
-- LibreOffice Calc
-
-## 📝 Notas Importantes
-
-- **Formato Excel (.xlsx)**: Se utiliza Excel en lugar de ODS por problemas de compatibilidad
-- **Columna C**: Los datos en las grillas de PISO empiezan en columna C (IN/fecha ingreso)
-- **Columna B**: Contiene el número de habitación (no se modifica)
-- **Filas consecutivas**: Cada pax de una habitación ocupa una fila diferente
-- **Respaldos**: Se crean automáticamente con formato `BACKUP_YYYYMMDD_HHMMSS_*.xlsx`
-
-## 🏗️ Historial del Proyecto
-
-### Problemas Resueltos
-
-1. **Archivo ODS corrupto**: El archivo original GRILLA_DE_PAX_2026.ods no podía abrirse en Excel
-   - **Solución**: Migración completa a formato .xlsx con openpyxl
-
-2. **Importación y distribución separadas**: Proceso en dos pasos era ineficiente
-   - **Solución**: Script unificado `procesar_reservas.py`
-
-3. **Solo primer pax por habitación**: No se distribuían familias completas
-   - **Solución**: Distribución de todos los pax en filas consecutivas
-
-4. **Sin estadísticas**: No había resumen automático
-   - **Solución**: Actualización automática de celdas H277:H279
-
-### Versión Actual: 2.0
-
-- ✅ Proceso unificado (importar + distribuir)
-- ✅ Soporte completo para grupos familiares
-- ✅ Estadísticas automáticas
-- ✅ Histórico acumulativo
-- ✅ Formato Excel nativo (.xlsx)
-
-## 👨‍💻 Autor
-
-**Pablo Daniel**
-- GitHub: [@xpablodaniel](https://github.com/xpablodaniel)
-- Proyecto: Hotel 23 de Mayo - Sistema de Recepción 2026
-
-## 📄 Licencia
-
-Este proyecto es de uso interno para el Hotel 23 de Mayo.
+**Desarrollado para la gestión hotelera - 2025/2026**
